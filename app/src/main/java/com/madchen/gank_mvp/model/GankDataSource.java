@@ -15,7 +15,7 @@ public interface GankDataSource {
         void dataNotAvailable();
     }
 
-    void loadGanks(int type, LoadGanksCallBack loadGanksCallBack);
+    void loadGanks(String type,int pageIndex, LoadGanksCallBack loadGanksCallBack);
 
     interface  LoadGankContentCallBack{
         void loadContentSuccess(Ganks ganks);

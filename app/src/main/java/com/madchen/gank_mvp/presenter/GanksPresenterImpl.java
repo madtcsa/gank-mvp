@@ -32,25 +32,18 @@ public class GanksPresenterImpl implements GanksPresenter, Constants.GankUrl, Co
     @Override
     public void getGankList(String type, int pageIndex) {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GanksConverterFactory.create())
-                .build();
-        GanksService service =  retrofit.create(GanksService.class);
-        Call<Ganks> call = service.getGanks(type,pageIndex);
-        call.enqueue(new Callback<Ganks>() {
+        mGankDataSourceImpl.loadGanks(type, pageIndex, new GankDataSource.LoadGanksCallBack() {
             @Override
-            public void onResponse(Call<Ganks> call, Response<Ganks> response) {
-                Ganks ganks = response.body();
-                Log.d("GanksPresenterImpl", "---Ganks--- " + ganks.getResultsList().size());
+            public void loadGankSuccess(Ganks ganks) {
+                gankFragment.showGanks(ganks);
             }
 
             @Override
-            public void onFailure(Call<Ganks> call, Throwable t) {
-                Log.d("GanksPresenterImpl", "---Failed--- ");
-                t.printStackTrace();
+            public void dataNotAvailable() {
+
             }
         });
+
     }
 
     @Override
