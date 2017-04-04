@@ -59,11 +59,17 @@ public class MainActivity extends AppCompatActivity
         for (String mTitle : mTitles) {
             bundle = new Bundle();
             bundle.putString(GankFragment.KEY_FRAGMENT_CONTENT_CATEGORY, mTitle);
+            if (mTitle.equals(_android)) {
+                bundle.putBoolean(GankFragment.KEY_CURRENT_FRAGMENT_INDEX, true);
+            } else {
+                bundle.putBoolean(GankFragment.KEY_CURRENT_FRAGMENT_INDEX, false);
+            }
             gankFragment = new GankFragment();
             gankFragment.setArguments(bundle);
             mGankFragmentList.add(gankFragment);
         }
-        mViewPager.setAdapter(new GankFragmentAdapter(getSupportFragmentManager(),mGankFragmentList,mTitles));
+        mViewPager.setOffscreenPageLimit(5);
+        mViewPager.setAdapter(new GankFragmentAdapter(getSupportFragmentManager(), mGankFragmentList, mTitles));
         mTabs.setViewPager(mViewPager);
         mViewPager.setCurrentItem(1);
         mTabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -104,6 +110,7 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
+
     private void initDrawerLayout() {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

@@ -2,6 +2,7 @@ package com.madchen.gank_mvp.fragments;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class GanksListAdapter extends RecyclerView.Adapter<GanksListAdapter.MyVi
         holder.createdTimeText.setText(results.getCreatedAt());
         holder.descText.setText(results.getDesc());
         if (results.getImgUrls() != null && results.getImgUrls().size() >= 0) {
+            Log.d("GanksListAdapter", "----imgUrl---- " + results.getImgUrls().get(0));
             Glide.with(mContext).load(results.getImgUrls().get(0)).into(holder.mImageView);
         }
     }

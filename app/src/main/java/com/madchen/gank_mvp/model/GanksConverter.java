@@ -26,7 +26,6 @@ public class GanksConverter implements Converter<ResponseBody, Ganks> {
     @Override
     public Ganks convert(ResponseBody value) throws IOException {
         String string = value.string();
-        Log.d("GanksConverter", "----String----- " + string);
         Ganks ganks = new Ganks();
         JSONObject jsonObject = null;
         try {
@@ -47,8 +46,9 @@ public class GanksConverter implements Converter<ResponseBody, Ganks> {
                 results.setUrl(obj.optString("url"));
                 results.setUsed(obj.optString("true"));
                 results.setWho(obj.optString("who"));
-                JSONArray urlArray = jsonObject.optJSONArray("images");
+                JSONArray urlArray = obj.optJSONArray("images");
                 if (urlArray != null) {
+                    Log.d("GanksConverter", "---urlArray---- " + urlArray.length());
                     List<String> imgUrlList = new ArrayList<>();
                     for (int i = 0; i < urlArray.length(); i++) {
                         imgUrlList.add(urlArray.optString(i));
